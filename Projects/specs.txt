@@ -3,14 +3,31 @@ Feature:  GET
     as a : shell fan
     I want to download a web page
 
-Scenario: show the content of a page
-    Given : I entered a fake url option `-url "http://fake"`
-    And : any other option
-    When : I press enter
-    Then : the result should be `<h1>hello</h1>`
+    Scenario: show the content of a page
+        Given : I entered a fake url option '-url "http://abc"'
+        And : any other option
+        When : I press enter
+        Then : the result should be `<h1>hello</h1>`
 
-Scenario: save the content of a page
-    Given : I entered a fake url option `-url "http://fake"`
-    And : I enter the option `-save` with the value 'fake.txt'
-    When : I press enter
-    Then : a file called `fake.txt` should be created with the content `<h1>hello</h1>`
+    Scenario: save the content of a page
+        Given : I entered a fake url option '-url "http://abc"'
+        And : I enter the option `-save` with the value 'c:\abc.txt'
+        When : I press enter
+        Then : a file called `c:\abc.txt` should be created with the content '<h1>The winner is me</h1>'
+
+Feature: Test
+    In order : to test the time of program execution
+    as a : performance fan
+    I want to test the time of downloading page
+    
+    Scenario: test the response times
+        Given : I choose a repetition number of times option '-times 5'
+        When : I press enter
+        Then : The result should be " 1) 1sec 2) 2sec 3) 1sec 4) 1sec 5) 1sec "
+
+    Scenario : show the average of response times
+        Given : I entered the times option with value '-times 3'
+        And : I enter the option '-avg' without any value
+        Then : The result should be the average of the 3 response times
+
+
