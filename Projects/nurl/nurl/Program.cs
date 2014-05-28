@@ -7,6 +7,10 @@
  * To change this template use Tools | Options | Coding | Edit Standard Headers.
  */
 using System;
+using System.Collections;
+using nurl.parse;
+using CommandLine;
+using CommandLine.Text;
 
 namespace nurl
 {
@@ -14,10 +18,12 @@ namespace nurl
 	{
 		public static void Main(string[] args)
 		{
-			Console.WriteLine("Hello World!");
+			myParser parse = new myParser(args);
+			parse.parseArgs();
 			
-			// TODO: Implement Functionality Here
-			
+			Console.WriteLine("Url Donnée : {0}", parse.inputUrl);
+			Console.WriteLine("File Donnée : {0}\n\n", parse.outputFile);
+	
 			Console.Write("Press any key to continue . . . ");
 			Console.ReadKey(true);
 		}
