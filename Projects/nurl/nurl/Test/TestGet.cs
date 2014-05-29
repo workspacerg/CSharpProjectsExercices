@@ -7,7 +7,9 @@
  * To change this template use Tools | Options | Coding | Edit Standard Headers.
  */
 using System;
+using System.Collections.Generic;
 using System.Net;
+using System.Security.Cryptography;
 using NUnit.Framework;
 
 namespace nurl.Test
@@ -37,6 +39,35 @@ namespace nurl.Test
 			
 			Assert.IsTrue(result);	
 		}
+		
+		
+		[TestCase(1 , "http://webbdoger93.free.fr/testNurl/hello.html", modeOfprocessing.testUrlTime, 5 )]
+		[TestCase(2 , "http://webbdoger93.free.fr/testNurl/hello.html", modeOfprocessing.testUrlTimeAvg, 5 )]
+		public void TestGetTimer(int id, string _url ,modeOfprocessing _mode ,int _iterator)
+		{
+			
+			Processing process = new Processing(_url, "" , _mode);			
+			TimeSpan resultContent = process.getTimeSpent(_iterator);
+	
+			Assert.IsTrue(TimeSpan.Zero != resultContent);
+	
+		}
+		
+		[TestCase(1 , new double[] {1.5, 2.3 , 1.6 , 2.4}, 1.95 ,  4 )]
+		public void TestGetTimerAvg(int id, double[] list , double test ,int _iterator)
+		{
+			
+			Processing process = new Processing("", "");			
+			double res = process.avgTime(list , 4);
+	
+			Console.WriteLine("Res : {0}  , test  : {1}", res , test );
+			
+			Assert.IsTrue( (float)res == (float)test);
+	
+		}
+		
+		
+		
 	}
 	
 		public  enum modeOfprocessing {
@@ -55,6 +86,14 @@ namespace nurl.Test
 		public  modeOfprocessing mode;
 		public string inputUrl ; 
 		public string outputFile ; 
+		
+	
+		public Processing(string _Url, string _file , modeOfprocessing _mode ){
+			
+			inputUrl = _Url ; 
+			outputFile = _file ; 
+			mode = _mode ;
+		}
 		
 		public Processing(string _Url, string _file ){
 			
@@ -99,6 +138,51 @@ namespace nurl.Test
 			
 		}
 		
+		public TimeSpan getTimeSpent(int iterator)
+		{
+			
+			
+			TimeSpan ts = TimeSpan.Zero; 
+			List<double> list = new List<double>();
+			
+			for (int i = 1; i <= iterator; i++)
+	        {
+	            HttpWebRequest myHttpWebRequest1 = (HttpWebRequest) WebRequest.Create(inputUrl);
+				DateTime oldDate = DateTime.Now;
+				var response = myHttpWebRequest1.GetResponse();
+				DateTime newDate = DateTime.Now;
+				ts = newDate - oldDate;
+				Console.WriteLine("Total time: {0} ms", ts.Milliseconds);
+				
+				response.GetResponseStream().Close();
+				
+				list.Add(ts.Milliseconds);
+				
+	        }
+			
+			if (mode == modeOfprocessing.testUrlTimeAvg)
+			{
+				double [] arg = list.ToArray() ;
+				Console.WriteLine("Moyenne : {0}", avgTime(arg , iterator));
+			}
+			
+			return ts;	
+			
+		}
+		
+		 public double avgTime(double[] t, int iterator)
+		{
+				double result, somme = 0;
+				
+				for(int i=0; i<t.Length; i++){
+					somme=somme+t[i];
+				}
+				
+				result=somme/iterator;
+				
+				return result;
+			}
+					
 		public bool saveContentInFile(string _content)
 		{      
 			try
