@@ -61,6 +61,7 @@
     <Compile Include="parse\old\Option.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Test\TestGet.cs" />
     <Compile Include="Test\TestParser.cs" />
   </ItemGroup>
   <ItemGroup>

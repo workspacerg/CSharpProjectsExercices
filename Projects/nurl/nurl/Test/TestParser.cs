@@ -13,7 +13,7 @@ using System.Runtime.Remoting.Messaging;
 using System.Runtime.Remoting.Metadata.W3cXsd2001;
 using NUnit.Framework;
 
-namespace nurl.parse
+namespace nurl.Test
 {
 	[TestFixture]
 	public class TestParser
@@ -60,7 +60,7 @@ namespace nurl.parse
 			Assert.AreEqual(myParser.inputUrl , result);
 		}
 		
-//		[TestCase("get -url http://google.fr -save c:/text.html ", "c:/text.html", 1)]
+		[TestCase("get -url http://google.fr -save c:/text.html ", "c:/text.html", 1)]
 		[TestCase("get -url http://nunit.org/ -save c:/abc.json", "c:/abc.json", 2)]
 		public void validFile(string a , string result , int id)
 		{
@@ -74,6 +74,13 @@ namespace nurl.parse
 			Assert.AreEqual(myParser.outputFile , result);
 		}
 		
+		[TestCase("http://google.fr", true)]
+		[TestCase("Blabla",false)]
+		public void validUrlFormat(string a , bool result)
+		{			
+			Assert.IsTrue( Parser.isAnUrl(a) == result);
+		}
+		
 	}
 
 	public class Parser
@@ -83,6 +90,7 @@ namespace nurl.parse
 		public string [] args ; 
 		public string outputFile;
 		public string inputUrl;
+		public modeOfprocessing mode ; 
 		
 		public Parser(string[] _args)
 		{	
@@ -175,7 +183,7 @@ namespace nurl.parse
 			    return result;
 		}
 		
-		private bool isAnUrl(string urlTest)
+		public static bool isAnUrl(string urlTest)
         {
             try
             {
@@ -205,5 +213,3 @@ namespace nurl.parse
 
 
 }
-
-
