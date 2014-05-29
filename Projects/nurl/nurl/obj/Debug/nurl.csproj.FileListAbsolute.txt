@@ -1,0 +1,15 @@
+C:\Users\Romain GABEL\Desktop\github\CSharpProjectsExercices\nurl\nurl\bin\Debug\nurl.exe.config
+C:\Users\Romain GABEL\Desktop\github\CSharpProjectsExercices\nurl\nurl\bin\Debug\nurl.exe
+C:\Users\Romain GABEL\Desktop\github\CSharpProjectsExercices\nurl\nurl\bin\Debug\nurl.pdb
+C:\Users\Romain GABEL\Desktop\github\CSharpProjectsExercices\nurl\nurl\obj\Debug\nurl.csprojResolveAssemblyReference.cache
+C:\Users\Romain GABEL\Desktop\github\CSharpProjectsExercices\nurl\nurl\obj\Debug\nurl.exe
+C:\Users\Romain GABEL\Desktop\github\CSharpProjectsExercices\nurl\nurl\obj\Debug\nurl.pdb
+C:\Users\Romain GABEL\Desktop\github\CSharpProjectsExercices\Projects\nurl\nurl\bin\Debug\nurl.exe.config
+C:\Users\Romain GABEL\Desktop\github\CSharpProjectsExercices\Projects\nurl\nurl\bin\Debug\nurl.exe
+C:\Users\Romain GABEL\Desktop\github\CSharpProjectsExercices\Projects\nurl\nurl\bin\Debug\nurl.pdb
+C:\Users\Romain GABEL\Desktop\github\CSharpProjectsExercices\Projects\nurl\nurl\bin\Debug\NUnit.Framework.dll
+C:\Users\Romain GABEL\Desktop\github\CSharpProjectsExercices\Projects\nurl\nurl\obj\Debug\nurl.csprojResolveAssemblyReference.cache
+C:\Users\Romain GABEL\Desktop\github\CSharpProjectsExercices\Projects\nurl\nurl\obj\Debug\nurl.exe
+C:\Users\Romain GABEL\Desktop\github\CSharpProjectsExercices\Projects\nurl\nurl\obj\Debug\nurl.pdb
+C:\Users\Romain GABEL\Desktop\github\CSharpProjectsExercices\Projects\nurl\nurl\bin\Debug\CommandLine.dll
+C:\Users\Romain GABEL\Desktop\github\CSharpProjectsExercices\Projects\nurl\nurl\bin\Debug\CommandLine.xml
