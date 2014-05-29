@@ -8,7 +8,6 @@
  */
 using System;
 using System.Collections;
-using nurl.parse;
 using CommandLine;
 using CommandLine.Text;
 
@@ -18,13 +17,27 @@ namespace nurl
 	{
 		public static void Main(string[] args)
 		{
-			myParser parse = new myParser(args);
-			parse.parseArgs();
+			Parser p = new Parser(args);
+			string valid = p.validArgument();
 			
-			Console.WriteLine("Url Donnée : {0}", parse.inputUrl);
-			Console.WriteLine("File Donnée : {0}\n\n", parse.outputFile);
+			if (valid.Equals("Commande Valide"))
+			{
+				Console.WriteLine(valid);
+				Console.WriteLine("Url ={0} \n", p.inputUrl);
+				
+				Processing process = new Processing(p);
+				process.processNurl();
+				
+			}
+			else
+			{
+			
+				Console.WriteLine(valid);
+			
+			}
+			
 	
-			Console.Write("Press any key to continue . . . ");
+			Console.Write("\n\nPress any key to continue . . . ");
 			Console.ReadKey(true);
 		}
 	}

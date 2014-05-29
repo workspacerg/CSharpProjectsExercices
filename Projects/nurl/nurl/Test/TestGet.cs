@@ -11,12 +11,14 @@ using System.Collections.Generic;
 using System.Net;
 using System.Security.Cryptography;
 using NUnit.Framework;
+using nurl;
 
 namespace nurl.Test
 {
 	[TestFixture]
 	public class TestGet
 	{
+		
 		[TestCase(1 , "http://webbdoger93.free.fr/testNurl/hello.html" , "<h1>Hello test<h1>" , true )]
 		[TestCase(2 , "http://webbdoger93.free.fr/testNurl/hello.html" , "<h1>Hello test fake<h1>" , false )]
 		[TestCase(3 , "http://webbdoger93.free.fr/testNurl/empty.html" , "Emplty file" , true )]
@@ -69,145 +71,145 @@ namespace nurl.Test
 		
 		
 	}
-	
-		public  enum modeOfprocessing {
-			
-			getUrl,
-			getUrlSave,
-			testUrlTime,
-			testUrlTimeAvg,
-			
-		};
+
+//		public  enum modeOfprocessing {
+//			
+//			getUrl,
+//			getUrlSave,
+//			testUrlTime,
+//			testUrlTimeAvg,
+//			
+//		};
 
 	
-	public class Processing
-	{	
-			
-		public  modeOfprocessing mode;
-		public string inputUrl ; 
-		public string outputFile ; 
-		
-	
-		public Processing(string _Url, string _file , modeOfprocessing _mode ){
-			
-			inputUrl = _Url ; 
-			outputFile = _file ; 
-			mode = _mode ;
-		}
-		
-		public Processing(string _Url, string _file ){
-			
-			inputUrl = _Url ; 
-			outputFile = _file ; 
-		}
-		
-		public Processing(Parser p)
-		{
-			mode = p.mode ; 
-		
-			if (!string.IsNullOrEmpty(inputUrl))
-			{
-				inputUrl = p.inputUrl ; 
-			}	
-			
-			if (!string.IsNullOrEmpty(outputFile))
-			{
-				outputFile= p.outputFile ; 
-			}
-	
-			
-		}
-		
-		public string  getContentOfUrl(){
-		
-			var webRequest = WebRequest.Create(inputUrl);
-			
-			using (var response = webRequest.GetResponse())
-			using(var content = response.GetResponseStream())
-			using(var reader = new System.IO.StreamReader(content)){
-			    var strContent = reader.ReadToEnd();
-				
-				
-				if (string.IsNullOrEmpty(strContent))
-				{
-					return "Emplty file" ;
-				}	
-			
-				return strContent; 
-			}
-			
-		}
-		
-		public TimeSpan getTimeSpent(int iterator)
-		{
-			
-			
-			TimeSpan ts = TimeSpan.Zero; 
-			List<double> list = new List<double>();
-			
-			for (int i = 1; i <= iterator; i++)
-	        {
-	            HttpWebRequest myHttpWebRequest1 = (HttpWebRequest) WebRequest.Create(inputUrl);
-				DateTime oldDate = DateTime.Now;
-				var response = myHttpWebRequest1.GetResponse();
-				DateTime newDate = DateTime.Now;
-				ts = newDate - oldDate;
-				Console.WriteLine("Total time: {0} ms", ts.Milliseconds);
-				
-				response.GetResponseStream().Close();
-				
-				list.Add(ts.Milliseconds);
-				
-	        }
-			
-			if (mode == modeOfprocessing.testUrlTimeAvg)
-			{
-				double [] arg = list.ToArray() ;
-				Console.WriteLine("Moyenne : {0}", avgTime(arg , iterator));
-			}
-			
-			return ts;	
-			
-		}
-		
-		 public double avgTime(double[] t, int iterator)
-		{
-				double result, somme = 0;
-				
-				for(int i=0; i<t.Length; i++){
-					somme=somme+t[i];
-				}
-				
-				result=somme/iterator;
-				
-				return result;
-			}
-					
-		public bool saveContentInFile(string _content)
-		{      
-			try
-			{
-				System.IO.StreamWriter file = new System.IO.StreamWriter(outputFile);
-				file.WriteLine(_content);
-				
-				file.Close();
-				return true;
-			}
-			catch(InvalidOperationException e)
-			{
-				Console.WriteLine(e);
-				return false; 
-			}
-	        
-		}
-		
-		public void displayString(string src){
-			
-			Console.WriteLine(src);
-		
-		}
-		
-	}
+//	public class Processing
+//	{	
+//			
+//		public  modeOfprocessing mode;
+//		public string inputUrl ; 
+//		public string outputFile ; 
+//		
+//	
+//		public Processing(string _Url, string _file , modeOfprocessing _mode ){
+//			
+//			inputUrl = _Url ; 
+//			outputFile = _file ; 
+//			mode = _mode ;
+//		}
+//		
+//		public Processing(string _Url, string _file ){
+//			
+//			inputUrl = _Url ; 
+//			outputFile = _file ; 
+//		}
+//		
+//		public Processing(Parser p)
+//		{
+//			mode = p.mode ; 
+//		
+//			if (!string.IsNullOrEmpty(inputUrl))
+//			{
+//				inputUrl = p.inputUrl ; 
+//			}	
+//			
+//			if (!string.IsNullOrEmpty(outputFile))
+//			{
+//				outputFile= p.outputFile ; 
+//			}
+//	
+//			
+//		}
+//		
+//		public string  getContentOfUrl(){
+//		
+//			var webRequest = WebRequest.Create(inputUrl);
+//			
+//			using (var response = webRequest.GetResponse())
+//			using(var content = response.GetResponseStream())
+//			using(var reader = new System.IO.StreamReader(content)){
+//			    var strContent = reader.ReadToEnd();
+//				
+//				
+//				if (string.IsNullOrEmpty(strContent))
+//				{
+//					return "Emplty file" ;
+//				}	
+//			
+//				return strContent; 
+//			}
+//			
+//		}
+//		
+//		public TimeSpan getTimeSpent(int iterator)
+//		{
+//			
+//			
+//			TimeSpan ts = TimeSpan.Zero; 
+//			List<double> list = new List<double>();
+//			
+//			for (int i = 1; i <= iterator; i++)
+//	        {
+//	            HttpWebRequest myHttpWebRequest1 = (HttpWebRequest) WebRequest.Create(inputUrl);
+//				DateTime oldDate = DateTime.Now;
+//				var response = myHttpWebRequest1.GetResponse();
+//				DateTime newDate = DateTime.Now;
+//				ts = newDate - oldDate;
+//				Console.WriteLine("Total time: {0} ms", ts.Milliseconds);
+//				
+//				response.GetResponseStream().Close();
+//				
+//				list.Add(ts.Milliseconds);
+//				
+//	        }
+//			
+//			if (mode == modeOfprocessing.testUrlTimeAvg)
+//			{
+//				double [] arg = list.ToArray() ;
+//				Console.WriteLine("Moyenne : {0}", avgTime(arg , iterator));
+//			}
+//			
+//			return ts;	
+//			
+//		}
+//		
+//		 public double avgTime(double[] t, int iterator)
+//		{
+//				double result, somme = 0;
+//				
+//				for(int i=0; i<t.Length; i++){
+//					somme=somme+t[i];
+//				}
+//				
+//				result=somme/iterator;
+//				
+//				return result;
+//			}
+//					
+//		public bool saveContentInFile(string _content)
+//		{      
+//			try
+//			{
+//				System.IO.StreamWriter file = new System.IO.StreamWriter(outputFile);
+//				file.WriteLine(_content);
+//				
+//				file.Close();
+//				return true;
+//			}
+//			catch(InvalidOperationException e)
+//			{
+//				Console.WriteLine(e);
+//				return false; 
+//			}
+//	        
+//		}
+//		
+//		public void displayString(string src){
+//			
+//			Console.WriteLine(src);
+//		
+//		}
+//		
+//	}
 	
 	
 }
