@@ -20,9 +20,22 @@ namespace nurl.Test
 		[TestCase(3 , "http://webbdoger93.free.fr/testNurl/empty.html" , "Emplty file" , true )]
 		public void Get_the_content_of_a_page(int id , string tested , string test , bool result )
 		{
-			Processing process = new Processing(tested);			
+			Processing process = new Processing(tested, "");			
 			string resultContent = process.getContentOfUrl();			
 		    Assert.AreEqual(result, resultContent.Equals(test));
+		}
+		
+		[TestCase(1 , "http://webbdoger93.free.fr/testNurl/hello.html" , @"C:\Users\Romain GABEL\Desktop\hello.html" )]
+		[TestCase(2 , "https://www.linxo.com/" , @"C:\Users\Romain GABEL\Desktop\linxoIndex.html" )]
+		public void Save_the_content_in_page(int id, string _url , string _file )
+		{
+			
+			Processing process = new Processing(_url , _file);			
+			string resultContent = process.getContentOfUrl();
+			bool result = process.saveContentInFile(resultContent);
+			
+			
+			Assert.IsTrue(result);	
 		}
 	}
 	
@@ -43,10 +56,10 @@ namespace nurl.Test
 		public string inputUrl ; 
 		public string outputFile ; 
 		
-		public Processing(String _Url){
+		public Processing(string _Url, string _file ){
 			
 			inputUrl = _Url ; 
-			
+			outputFile = _file ; 
 		}
 		
 		public Processing(Parser p)
@@ -84,6 +97,30 @@ namespace nurl.Test
 				return strContent; 
 			}
 			
+		}
+		
+		public bool saveContentInFile(string _content)
+		{      
+			try
+			{
+				System.IO.StreamWriter file = new System.IO.StreamWriter(outputFile);
+				file.WriteLine(_content);
+				
+				file.Close();
+				return true;
+			}
+			catch(InvalidOperationException e)
+			{
+				Console.WriteLine(e);
+				return false; 
+			}
+	        
+		}
+		
+		public void displayString(string src){
+			
+			Console.WriteLine(src);
+		
 		}
 		
 	}
